@@ -14,6 +14,7 @@ import tensorflow as tf
 import tensorflow.keras as ks
 import cv2
 import os
+#Descargamos el modelo con tensorflow
 
 Modelo = tf.keras.models.load_model('modelo.h5')
 
@@ -26,6 +27,7 @@ print("Hola mundo!")
 
 # Leer una imagen y convertirla a una matriz
 def leer_imagen(ruta):
+    #descarga la imagen y define la imagen con las dimensiones 720 x 420 en formato de escala de grises
     img = cv2.imread(ruta, cv2.IMREAD_GRAYSCALE)
     img = cv2.resize(img, (480,720))
     vimg = []
@@ -42,6 +44,7 @@ def iterar_imagenes(ruta):
                 lista.append(os.path.join(root, file))
     return lista
 def leerImagenes():
+    #Escoge el path para la descarga de los datos finales
     rutaTrainNormal = "/content/chest_xray/train/NORMAL"
     rutaTrainPulmonia = "/content/chest_xray/train/PNEUMONIA"
     rutaTestNormal = "/content/chest_xray/test/NORMAL"
@@ -62,7 +65,7 @@ def leerImagenes():
 
 
     listaImagenesTrain = []
-
+    #evalua los valores finales y las escalas de 0 y 1
     for ruta in RUTASTest:
         imagenes = []
         for imagen in ruta:
@@ -80,13 +83,13 @@ def leerImagenes():
     
     listaImagenesTrain = listaImagenesTrain
     return listaImagenesTrain, valores
-
+#Guarda los datos en forma de un arreglo de imagenes
 Imagenes = leerImagenes()
 
 listaImagenes, Valores = Imagenes
 listaImagenes = np.array(listaImagenes)
 Valores = np.array(Valores)
-
+#Muestra la cantidad de instancias en las imagenes
 print(len(listaImagenes))
 
 #Contar las veces en q se equivoca la cosa esta y almacenarlas
